@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" page-range-format="expanded" default-locale="en-US">
+  <info>
+    <title>Teikyo PBL Citation (EN)</title>
+    <title-short>Teikyo PBL EN</title-short>
+    <id>https://github.com/KotaYoneda/csl-styles/misc/teikyo-pbl/teikyo-pbl-en</id>
+    <link href="https://github.com/KotaYoneda/csl-styles/misc/teikyo-pbl/teikyo-pbl-en" rel="self"/>
+    <contributor>
+      <name>Kota Yoneda</name>
+      <uri>https://github.com/KotaYoneda</uri>
+    </contributor>
+    <summary>帝京大学 医学部 PBL/BSL オリエンテーション資料の引用ルールに準拠。英語文献用。例: Imran H, et al: Title. Eur J Clin Microbiol Infect Dis 2008; 27: 53-63.</summary>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <updated>2026-11-13T00:00:00+09:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="et-al">et al</term>
+      <term name="page-range-delimiter">-</term>
+      <term name="editor" form="short">
+        <single>ed.</single>
+        <multiple>eds.</multiple>
+      </term>
+    </terms>
+  </locale>
+
+  <!-- 著者：筆頭のみ＋et al -->
+  <macro name="author">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator=" " initialize-with="" delimiter=", " delimiter-precedes-et-al="always" et-al-min="2" et-al-use-first="1"/>
+    </names>
+  </macro>
+
+  <!-- 編者：Tamura K, ed. -->
+  <macro name="editor">
+    <names variable="editor">
+      <name name-as-sort-order="all" sort-separator=" " initialize-with="" delimiter=", " delimiter-precedes-et-al="always" et-al-min="2" et-al-use-first="1"/>
+      <label form="short" prefix=", "/>
+    </names>
+  </macro>
+
+  <!-- 著者：表題 -->
+  <macro name="author-title">
+    <group delimiter=": ">
+      <text macro="author"/>
+      <text variable="title"/>
+    </group>
+  </macro>
+
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <number variable="edition" form="ordinal" suffix=" ed."/>
+      </if>
+      <else>
+        <text variable="edition"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- 書名＋版 -->
+  <macro name="book-title">
+    <group delimiter=". ">
+      <text variable="container-title"/>
+      <text macro="edition"/>
+    </group>
+  </macro>
+
+  <macro name="year">
+    <date variable="issued">
+      <date-part name="year" suffix=""/>
+    </date>
+  </macro>
+
+  <macro name="accessed">
+    <group prefix=" (accessed " suffix=")">
+      <date variable="accessed">
+        <date-part name="year" suffix="-"/>
+        <date-part name="month" form="numeric-leading-zeros" suffix="-"/>
+        <date-part name="day" form="numeric-leading-zeros"/>
+      </date>
+    </group>
+  </macro>
+
+  <macro name="entry">
+    <choose>
+      <!-- 学術雑誌：著者：表題．雑誌略名 年; 巻: 頁． -->
+      <if type="article-journal article-magazine article-newspaper" match="any">
+        <group delimiter=". " suffix=".">
+          <text macro="author-title"/>
+          <group delimiter=" ">
+            <text variable="container-title" form="short" strip-periods="true"/>
+            <group delimiter="; ">
+              <date variable="issued"><date-part name="year"/></date>
+              <group delimiter=": ">
+                <text variable="volume"/>
+                <text variable="page"/>
+              </group>
+            </group>
+          </group>
+        </group>
+      </if>
+      <!-- 書籍の章：著者：表題．編者編，書名 版．年，p頁，出版社． -->
+      <else-if type="chapter paper-conference entry-encyclopedia entry-dictionary" match="any">
+        <group delimiter=". " suffix=".">
+          <text macro="author-title"/>
+          <group delimiter=", ">
+            <text macro="editor"/>
+            <text macro="book-title"/>
+          </group>
+          <group delimiter=", ">
+            <text macro="year"/>
+            <text variable="page" prefix="p"/>
+            <text variable="publisher"/>
+          </group>
+        </group>
+      </else-if>
+      <!-- Webページ：著者：表題．ホームページ名．URL（閲覧日） -->
+      <else-if type="webpage post post-weblog" match="any">
+        <group delimiter=" ">
+          <group delimiter=". " suffix=".">
+            <text macro="author-title"/>
+            <choose>
+              <if variable="container-title">
+                <text variable="container-title"/>
+              </if>
+              <else>
+                <text variable="publisher"/>
+              </else>
+            </choose>
+          </group>
+          <group delimiter="">
+            <text variable="URL"/>
+            <text macro="accessed"/>
+          </group>
+        </group>
+      </else-if>
+      <!-- 書籍・報告書など：著者：書名 版．年，出版社． -->
+      <else>
+        <group delimiter=". " suffix=".">
+          <group delimiter=": ">
+            <text macro="author"/>
+            <text macro="book-title-main"/>
+          </group>
+          <group delimiter=", ">
+            <text macro="year"/>
+            <text variable="publisher"/>
+          </group>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="book-title-main">
+    <group delimiter=". ">
+      <text variable="title"/>
+      <text macro="edition"/>
+    </group>
+  </macro>
+
+  <!-- 本文中：上付き 1) / 1,2) / 1-3) -->
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout vertical-align="sup" delimiter="," suffix=")">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+
+  <!-- 文献リスト：1. … -->
+  <bibliography>
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <text macro="entry"/>
+    </layout>
+  </bibliography>
+</style>

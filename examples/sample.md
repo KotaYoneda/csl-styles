@@ -1,6 +1,5 @@
 ---
 title: CSLスタイル確認用サンプル
-lang: ja-JP
 bibliography: refs.bib
 link-citations: true
 ---

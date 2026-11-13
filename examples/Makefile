@@ -1,12 +1,14 @@
 # Usage:
 #   make JOURNAL=j-pediatr          build with your own CSL
 #   make compare JOURNAL=j-pediatr  build with both your CSL and official.csl
+#   make compare FORMAT=docx        output as Word
+#   make JOURNAL=teikyo-pbl-en DIR=../misc/teikyo-pbl
 #   make clean
 #
 # Works on both Windows (cmd) and macOS/Linux (sh).
 
 JOURNAL  ?= j-pediatr
-DIR      := ../journals/$(JOURNAL)
+DIR      ?= ../journals/$(JOURNAL)
 CSL      := $(DIR)/$(JOURNAL).csl
 OFFICIAL := $(DIR)/official.csl
 OUT      := out

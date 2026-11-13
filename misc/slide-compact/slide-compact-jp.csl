@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" page-range-format="expanded" default-locale="ja-JP">
+  <info>
+    <title>Slide Citation Compact (JP)</title>
+    <title-short>Slide Compact JP</title-short>
+    <id>https://github.com/KotaYoneda/csl-styles/misc/slide-compact/slide-compact-jp</id>
+    <link href="https://github.com/KotaYoneda/csl-styles/misc/slide-compact/slide-compact-jp" rel="self"/>
+    <contributor>
+      <name>Kota Yoneda</name>
+      <uri>https://github.com/KotaYoneda</uri>
+    </contributor>
+    <summary>スライド用の簡潔な出典表記（日本語文献用）。筆頭著者＋ほか、誌名、年;巻:ページ。タイトル・DOI・URLなし。例: 田中健二, ほか. 日本内科学会雑誌. 2023;112:123–130.</summary>
+    <category citation-format="numeric"/>
+    <category field="generic-base"/>
+    <updated>2026-11-13T00:00:00+09:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="ja">
+    <terms>
+      <term name="et-al">ほか</term>
+    </terms>
+  </locale>
+
+  <!-- 著者: 田中健二 / 田中健二, ほか -->
+  <macro name="author">
+    <names variable="author">
+      <name name-as-sort-order="all" sort-separator="" delimiter=", " delimiter-precedes-et-al="always" et-al-min="2" et-al-use-first="1"/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="publisher"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <!-- 掲載誌（略称優先、ピリオド除去）。書籍などは出版社 -->
+  <macro name="source">
+    <choose>
+      <if variable="container-title">
+        <text variable="container-title" form="short" strip-periods="true"/>
+      </if>
+      <else>
+        <text variable="publisher"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- 2023;29:123–130 -->
+  <macro name="year-volume-page">
+    <group>
+      <date variable="issued">
+        <date-part name="year"/>
+      </date>
+      <choose>
+        <if variable="volume">
+          <text variable="volume" prefix=";"/>
+          <text variable="page" prefix=":"/>
+        </if>
+        <else-if variable="page">
+          <text variable="page" prefix=":"/>
+        </else-if>
+      </choose>
+    </group>
+  </macro>
+
+  <macro name="entry">
+    <group delimiter=". " suffix=".">
+      <text macro="author"/>
+      <text macro="source"/>
+      <text macro="year-volume-page"/>
+    </group>
+  </macro>
+
+  <!-- 本文中の引用も同じ1行形式で出す（スライドに直接貼る用） -->
+  <citation>
+    <layout delimiter="; ">
+      <text macro="entry"/>
+    </layout>
+  </citation>
+
+  <bibliography>
+    <layout>
+      <text macro="entry"/>
+    </layout>
+  </bibliography>
+</style>
