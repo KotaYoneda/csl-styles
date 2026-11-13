@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" page-range-format="minimal" demote-non-dropping-particle="sort-only" default-locale="en-US">
+  <info>
+    <title>The Journal of Pediatrics (custom)</title>
+    <title-short>J Pediatr (custom)</title-short>
+    <id>https://github.com/KotaYoneda/csl-styles/journals/j-pediatr</id>
+    <link href="https://github.com/KotaYoneda/csl-styles/journals/j-pediatr" rel="self"/>
+    <link href="http://www.zotero.org/styles/elsevier-vancouver" rel="template"/>
+    <link href="https://www.sciencedirect.com/journal/the-journal-of-pediatrics/publish/guide-for-authors" rel="documentation"/>
+    <author>
+      <name>Richard Karnesky</name>
+      <email>karnesky+zotero@gmail.com</email>
+      <uri>http://arc.nucapt.northwestern.edu/Richard_Karnesky</uri>
+    </author>
+    <contributor>
+      <name>Kota Yoneda</name>
+      <uri>https://github.com/KotaYoneda</uri>
+    </contributor>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <issn>0022-3476</issn>
+    <summary>Modeled on the reference format of articles published in The Journal of Pediatrics (checked against J Pediatr 2026;297:115222): superscript citation numbers, numbered list, up to 6 authors then et al., abbreviated journal titles, Year;Volume:Pages, DOI as https://doi.org/ link without final period.</summary>
+    <updated>2026-11-13T00:00:00+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+  <locale xml:lang="en">
+    <terms>
+      <term name="page-range-delimiter">-</term>
+      <term name="citation-range-delimiter">-</term>
+    </terms>
+  </locale>
+  <macro name="author">
+    <names variable="author">
+      <name initialize-with="" delimiter=", " delimiter-precedes-last="always" name-as-sort-order="all" sort-separator=" "/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="publisher"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="editor">
+    <names variable="editor">
+      <name initialize-with="" delimiter=", " delimiter-precedes-last="always" name-as-sort-order="all" sort-separator=" "/>
+      <label form="short" prefix=", "/>
+    </names>
+  </macro>
+  <macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition" form="short"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="doi">
+    <text variable="DOI" prefix="https://doi.org/"/>
+  </macro>
+  <macro name="year-date">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+    </choose>
+  </macro>
+  <macro name="publisher">
+    <group delimiter="; ">
+      <group delimiter=": ">
+        <text variable="publisher-place"/>
+        <text variable="publisher"/>
+      </group>
+      <text macro="year-date"/>
+    </group>
+  </macro>
+  <macro name="accessed">
+    <choose>
+      <if variable="URL">
+        <group delimiter=". ">
+          <group delimiter=" ">
+            <text value="Accessed"/>
+            <date variable="accessed" form="text"/>
+          </group>
+          <text variable="URL"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout vertical-align="sup" delimiter=",">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+  <bibliography entry-spacing="0" second-field-align="flush" et-al-min="7" et-al-use-first="6">
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <choose>
+        <if type="webpage post post-weblog" match="any">
+          <group delimiter=". " suffix=".">
+            <text macro="author"/>
+            <text variable="title"/>
+            <text macro="year-date"/>
+            <text macro="accessed"/>
+          </group>
+        </if>
+        <else-if type="book report software thesis" match="any">
+          <group delimiter=". " suffix=".">
+            <text macro="author"/>
+            <text variable="title"/>
+            <text macro="edition"/>
+            <text variable="collection-title"/>
+            <text macro="publisher"/>
+          </group>
+          <text macro="doi" prefix=" "/>
+        </else-if>
+        <else-if type="chapter paper-conference" match="any">
+          <group delimiter=". " suffix=".">
+            <text macro="author"/>
+            <text variable="title"/>
+            <group delimiter=" ">
+              <text term="in" text-case="capitalize-first" suffix=":"/>
+              <text macro="editor"/>
+            </group>
+            <text variable="container-title"/>
+            <text macro="edition"/>
+            <text macro="publisher"/>
+            <group delimiter=" ">
+              <label variable="page" form="short" plural="never"/>
+              <text variable="page"/>
+            </group>
+          </group>
+          <text macro="doi" prefix=" "/>
+        </else-if>
+        <else>
+          <group delimiter=". ">
+            <text macro="author"/>
+            <text variable="title"/>
+            <group delimiter=":" suffix=".">
+              <group delimiter=" ">
+                <text variable="container-title" form="short" strip-periods="true"/>
+                <group delimiter=";">
+                  <text macro="year-date"/>
+                  <text variable="volume"/>
+                </group>
+              </group>
+              <choose>
+                <if variable="page">
+                  <text variable="page"/>
+                </if>
+                <else>
+                  <text variable="number"/>
+                </else>
+              </choose>
+            </group>
+          </group>
+          <text macro="doi" prefix=" "/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>

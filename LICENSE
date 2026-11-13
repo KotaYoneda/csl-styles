@@ -1,0 +1,15 @@
+Copyright (c) Kota Yoneda and the original authors of the CSL styles
+included in this repository.
+
+This work is licensed under the Creative Commons Attribution-ShareAlike
+3.0 Unported License (CC BY-SA 3.0).
+
+The CSL styles in this repository are derived from styles in the
+Citation Style Language styles repository
+(https://github.com/citation-style-language/styles), which are licensed
+under CC BY-SA 3.0. The original author of each style is credited in the
+<author> element of the style file, and the source style is linked with
+rel="template".
+
+To view a copy of this license, visit
+https://creativecommons.org/licenses/by-sa/3.0/
